@@ -63,64 +63,72 @@ def extract_text_features(texts):
 
 # Classification and voting mechanism (with added weights)
 def train_and_evaluate(X_text, X_audio, y):
+    # Split the data into training and test sets (80% training, 20% testing)
     X_text_train, X_text_test, X_audio_train, X_audio_test, y_train, y_test = train_test_split(
         X_text, X_audio, y, test_size=0.2, random_state=32
     )
-    print(f"文本特征数: {X_text_train.shape[1]}")  # 输出文本特征数
-    print(f"音频特征数: {X_audio_train.shape[1]}")  # 输出音频特征数
+    print(f"Number of text features: {X_text_train.shape[1]}")  # Output the number of text features
+    print(f"Audio feature count: {X_audio_train.shape[1]}")  # Output the number of audio features
 
-    # 音频分类器
+    # Audio classifiers
     scaler = StandardScaler()
+    # Standardizing audio features (scaling them to have mean=0 and std=1)
     X_audio_train = scaler.fit_transform(X_audio_train)
     X_audio_test = scaler.transform(X_audio_test)
+
+    # Models for audio classification: kNN and Gaussian Naive Bayes
     models_audio = {
         "kNN": KNeighborsClassifier(n_neighbors=5),
-        "GaussianNB": GaussianNB(),  # 使用高斯朴素贝叶斯
+        "GaussianNB": GaussianNB(),
     }
+
     predictions_audio = {}
     accuracy_audio = {}
-    for name, model in models_audio.items():
-        print(f"训练 {name} (音频特征)...")
-        model.fit(X_audio_train, y_train)
-        pred = model.predict(X_audio_test)
-        predictions_audio[name] = pred
-        accuracy = accuracy_score(y_test, pred)
-        accuracy_audio[name] = accuracy
-        print(f"{name} (音频特征) 准确率: {accuracy:.2f}")
 
-    # 如果使用文本特征，训练文本分类器
+    for name, model in models_audio.items():
+        print(f"Training {name} (Audio features)...")
+        model.fit(X_audio_train, y_train)  # Train the model
+        pred = model.predict(X_audio_test)  # Predict on the test set
+        predictions_audio[name] = pred
+        accuracy = accuracy_score(y_test, pred)  # Calculate accuracy
+        accuracy_audio[name] = accuracy
+        print(f"{name} (Audio features) Accuracy: {accuracy:.2f}")  # Print accuracy for audio models
+
+    # Text classifiers using Logistic Regression and Random Forest
     models_text = {
         "LogisticRegression": LogisticRegression(max_iter=1000),
         "RandomForest": RandomForestClassifier(n_estimators=15, random_state=32),
     }
+
     predictions_text = {}
     accuracy_text = {}
-    for name, model in models_text.items():
-        print(f"训练 {name} (文本特征)...")
-        model.fit(X_text_train, y_train)
-        pred = model.predict(X_text_test)
-        predictions_text[name] = pred
-        accuracy = accuracy_score(y_test, pred)
-        accuracy_text[name] = accuracy
-        print(f"{name} (文本特征) 准确率: {accuracy:.2f}")
 
-    # 合并所有模型的准确率
+    for name, model in models_text.items():
+        print(f"Training {name} (Text features)...")
+        model.fit(X_text_train, y_train)  # Train the model
+        pred = model.predict(X_text_test)  # Predict on the test set
+        predictions_text[name] = pred
+        accuracy = accuracy_score(y_test, pred)  # Calculate accuracy
+        accuracy_text[name] = accuracy
+        print(f"{name} (Text features) Accuracy: {accuracy:.2f}")  # Print accuracy for text models
+
+    # Combine the accuracy of all models (text and audio)
     accuracies = {**accuracy_text, **accuracy_audio}
 
-    # 投票机制
+    # Voting mechanism for final prediction
     final_predictions = []
     for i in range(len(y_test)):
         votes = []
         for name, pred in {**predictions_text, **predictions_audio}.items():
-            weight = accuracies.get(name, 0)
-            votes.extend([pred[i]] * int(weight * 10))
-        final_predictions.append(1 if votes.count(1) > votes.count(0) else 0)
+            weight = accuracies.get(name, 0)  # Get the weight based on accuracy
+            votes.extend([pred[i]] * int(weight * 10))  # Extend the votes list by the weight factor
+        final_predictions.append(1 if votes.count(1) > votes.count(0) else 0)  # Majority vote
 
-    # 输出最终准确率
+    # Output the final accuracy after voting
     accuracy = accuracy_score(y_test, final_predictions)
-    print(f"最终投票分类准确率: {accuracy:.2f}")
+    print(f"Final voting classification accuracy: {accuracy:.2f}")
 
-    # 绘制混淆矩阵
+    # Plot the confusion matrix to visualize the classification performance
     cm = confusion_matrix(y_test, final_predictions)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Deceptive", "True"])
     disp.plot(cmap="Blues")
@@ -130,41 +138,36 @@ def train_and_evaluate(X_text, X_audio, y):
 
 # 主程序
 def main():
-    # 加载数据
-    print("开始加载数据")
+    print("Start loading data")
     csv_file = "CBU0521DD_stories_attributes.csv"
     folder_path = "CBU0521DD_stories"
     df = pd.read_csv(csv_file)
 
-    # 限制使用的前 num_samples 个数据
     audio_files = df["filename"].values
     labels = df["Story_type"].map({"True Story": 1, "Deceptive Story": 0}).values
 
-    # 音频转文本
     texts = []
-    print("开始音频转文本")
+    print("Start audio to text conversion")
     for i, file in enumerate(audio_files):
         file_path = os.path.join(folder_path, file)
         output_text_path = os.path.join(folder_path, f"{file[:-4]}.txt")
 
-        # 检查是否存在已转换的文本
+        # Check if there is converted text
         if os.path.exists(output_text_path):
             with open(output_text_path, "r") as f:
                 text = f.read()
         else:
             text = audio_to_text(file_path, output_text_path)
         texts.append(text)
-    print("音频转文本完成")
+    print("Audio to text conversion completed")
 
-    # 提取文本特征
-    print("提取文本特征...")
+    print("Extract Text Features")
     X_text = extract_text_features(texts)
 
-    # 提取音频特征
-    print("提取音频特征...")
+    print("Extract audio features")
     X_audio = np.array([extract_audio_features(os.path.join(folder_path, file)) for file in audio_files])
 
-    # 分类与评估
+    # Classification and Evaluation
     train_and_evaluate(X_text, X_audio, labels)
 
 
