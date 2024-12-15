@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB  # 导入高斯朴素贝叶斯
+from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
@@ -94,8 +94,8 @@ def train_and_evaluate(X_text, X_audio, y, use_audio_to_text=True):
     # 如果使用文本特征，训练文本分类器
     if use_audio_to_text:
         models_text = {
-            "LogisticRegression": LogisticRegression(max_iter=500),
-            "RandomForest": RandomForestClassifier(n_estimators=100, random_state=42),
+            "LogisticRegression": LogisticRegression(max_iter=1000),
+            "RandomForest": RandomForestClassifier(n_estimators=15, random_state=32),
         }
         predictions_text = {}
         accuracy_text = {}
@@ -134,7 +134,7 @@ def train_and_evaluate(X_text, X_audio, y, use_audio_to_text=True):
 
 
 # 主程序
-def main(num_samples=10, use_audio_to_text=True):  # 添加 use_audio_to_text 参数
+def main(use_audio_to_text=True):  # 添加 use_audio_to_text 参数
     # 加载数据
     print("开始加载数据")
     csv_file = "CBU0521DD_stories_attributes.csv"
@@ -142,8 +142,8 @@ def main(num_samples=10, use_audio_to_text=True):  # 添加 use_audio_to_text �
     df = pd.read_csv(csv_file)
 
     # 限制使用的前 num_samples 个数据
-    audio_files = df["filename"].values[:num_samples]
-    labels = df["Story_type"].map({"True Story": 1, "Deceptive Story": 0}).values[:num_samples]
+    audio_files = df["filename"].values
+    labels = df["Story_type"].map({"True Story": 1, "Deceptive Story": 0}).values
 
     # 音频转文本
     texts = []
@@ -178,6 +178,5 @@ def main(num_samples=10, use_audio_to_text=True):  # 添加 use_audio_to_text �
 
 if __name__ == "__main__":
     # 指定前多少个数据进行处理，并控制是否使用音频转文本
-    num_samples = int(input("请输入要处理的样本数量（例如 10）: ").strip())
     use_audio_to_text = input("是否使用音频转文本 (y/n): ").strip().lower() == 'y'
-    main(num_samples, use_audio_to_text)
+    main(use_audio_to_text)
