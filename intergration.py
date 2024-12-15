@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB  # 导入高斯朴素贝叶斯
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
@@ -24,10 +24,10 @@ def recognize_whisper(audio_path):
     return result["text"]
 
 
-# 音频转文字：结合中文和英文模型，选择最佳结果
+# 音频转文字
 def audio_to_text(audio_path, output_text_path):
     print(f"开始识别 {audio_path} ...")
-    model = whisper.load_model("base")  # 使用 Whisper base 模型
+    model = whisper.load_model("base").to("cuda")  # 使用 Whisper base 模型
     audio = whisper.load_audio(audio_path)
     audio = whisper.pad_or_trim(audio)
     result = model.transcribe(audio)
@@ -60,14 +60,14 @@ def train_and_evaluate(X_text, X_audio, y, use_audio_to_text=True):
     # 如果不使用文本特征，直接跳过文本相关部分的处理
     if use_audio_to_text:
         X_text_train, X_text_test, X_audio_train, X_audio_test, y_train, y_test = train_test_split(
-            X_text, X_audio, y, test_size=0.2, random_state=42
+            X_text, X_audio, y, test_size=0.2, random_state=32
         )
         print(f"文本特征数: {X_text_train.shape[1]}")  # 输出文本特征数
         print(f"音频特征数: {X_audio_train.shape[1]}")  # 输出音频特征数
     else:
         # 仅使用音频特征
         X_audio_train, X_audio_test, y_train, y_test = train_test_split(
-            X_audio, y, test_size=0.2, random_state=42
+            X_audio, y, test_size=0.2, random_state=32
         )
         print(f"音频特征数: {X_audio_train.shape[1]}")  # 输出音频特征数
         X_text_train, X_text_test = np.array([]), np.array([])  # 如果没有文本特征，设为空
@@ -78,7 +78,7 @@ def train_and_evaluate(X_text, X_audio, y, use_audio_to_text=True):
     X_audio_test = scaler.transform(X_audio_test)
     models_audio = {
         "kNN": KNeighborsClassifier(n_neighbors=5),
-        "SVM": SVC(probability=True, kernel="rbf", random_state=42),
+        "GaussianNB": GaussianNB(),  # 使用高斯朴素贝叶斯
     }
     predictions_audio = {}
     accuracy_audio = {}
