@@ -12,6 +12,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+import joblib  # 用于保存和加载模型
 import matplotlib.pyplot as plt
 
 
@@ -27,15 +28,12 @@ def recognize_whisper(audio_path):
 # Audio to text conversion
 def audio_to_text(audio_path, output_text_path):
     print(f"Start recognizing {audio_path} ...")
-    # Using Whisper base model and GPU acceleration
     model = whisper.load_model("base").to("cuda")
     audio = whisper.load_audio(audio_path)
     audio = whisper.pad_or_trim(audio)
-    # Obtain the conversion result
     result = model.transcribe(audio)
     text = result['text']
 
-    # Save transcribed text
     with open(output_text_path, "w") as f:
         f.write(text)
     return text
@@ -43,40 +41,32 @@ def audio_to_text(audio_path, output_text_path):
 
 # Extract audio features
 def extract_audio_features(file_path):
-    # Loading audio files using the librosa library
     y, sr = librosa.load(file_path, sr=None)
-    # Calculate Mel frequency cepstral coefficients
     mfcc = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13), axis=1)
-    # Calculate the zero crossing rate
     zcr = np.mean(librosa.feature.zero_crossing_rate(y))
-    # Calculate root mean square
     rms = np.mean(librosa.feature.rms(y=y))
-    # Splicing to obtain audio features
     return np.hstack([mfcc, zcr, rms])
 
 
 # Extract text features
 def extract_text_features(texts):
-    vectorizer = TfidfVectorizer(max_features=50)
+    vectorizer = TfidfVectorizer(max_features=17)
     return vectorizer.fit_transform(texts).toarray()
 
 
-# Classification and voting mechanism (with added weights)
-def train_and_evaluate(X_text, X_audio, y):
-    # Split the data into training and test sets (80% training, 20% testing)
+# Train and evaluate the model
+def train_and_evaluate(X_text, X_audio, y, model_save_path=None):
     X_text_train, X_text_test, X_audio_train, X_audio_test, y_train, y_test = train_test_split(
         X_text, X_audio, y, test_size=0.2, random_state=32
     )
-    print(f"Number of text features: {X_text_train.shape[1]}")  # Output the number of text features
-    print(f"Audio feature count: {X_audio_train.shape[1]}")  # Output the number of audio features
+    print(f"Number of text features: {X_text_train.shape[1]}")
+    print(f"Audio feature count: {X_audio_train.shape[1]}")
 
     # Audio classifiers
     scaler = StandardScaler()
-    # Standardizing audio features (scaling them to have mean=0 and std=1)
     X_audio_train = scaler.fit_transform(X_audio_train)
     X_audio_test = scaler.transform(X_audio_test)
 
-    # Models for audio classification: kNN and Gaussian Naive Bayes
     models_audio = {
         "kNN": KNeighborsClassifier(n_neighbors=5),
         "GaussianNB": GaussianNB(),
@@ -87,14 +77,13 @@ def train_and_evaluate(X_text, X_audio, y):
 
     for name, model in models_audio.items():
         print(f"Training {name} (Audio features)...")
-        model.fit(X_audio_train, y_train)  # Train the model
-        pred = model.predict(X_audio_test)  # Predict on the test set
+        model.fit(X_audio_train, y_train)
+        pred = model.predict(X_audio_test)
         predictions_audio[name] = pred
-        accuracy = accuracy_score(y_test, pred)  # Calculate accuracy
+        accuracy = accuracy_score(y_test, pred)
         accuracy_audio[name] = accuracy
-        print(f"{name} (Audio features) Accuracy: {accuracy:.2f}")  # Print accuracy for audio models
+        print(f"{name} (Audio features) Accuracy: {accuracy:.2f}")
 
-    # Text classifiers using Logistic Regression and Random Forest
     models_text = {
         "LogisticRegression": LogisticRegression(max_iter=1000),
         "RandomForest": RandomForestClassifier(n_estimators=15, random_state=32),
@@ -105,70 +94,146 @@ def train_and_evaluate(X_text, X_audio, y):
 
     for name, model in models_text.items():
         print(f"Training {name} (Text features)...")
-        model.fit(X_text_train, y_train)  # Train the model
-        pred = model.predict(X_text_test)  # Predict on the test set
+        model.fit(X_text_train, y_train)
+        pred = model.predict(X_text_test)
         predictions_text[name] = pred
-        accuracy = accuracy_score(y_test, pred)  # Calculate accuracy
+        accuracy = accuracy_score(y_test, pred)
         accuracy_text[name] = accuracy
-        print(f"{name} (Text features) Accuracy: {accuracy:.2f}")  # Print accuracy for text models
+        print(f"{name} (Text features) Accuracy: {accuracy:.2f}")
 
-    # Combine the accuracy of all models (text and audio)
     accuracies = {**accuracy_text, **accuracy_audio}
 
-    # Voting mechanism for final prediction
     final_predictions = []
     for i in range(len(y_test)):
         votes = []
         for name, pred in {**predictions_text, **predictions_audio}.items():
-            weight = accuracies.get(name, 0)  # Get the weight based on accuracy
-            votes.extend([pred[i]] * int(weight * 10))  # Extend the votes list by the weight factor
-        final_predictions.append(1 if votes.count(1) > votes.count(0) else 0)  # Majority vote
+            weight = accuracies.get(name, 0)
+            votes.extend([pred[i]] * int(weight * 10))
+        final_predictions.append(1 if votes.count(1) > votes.count(0) else 0)
 
-    # Output the final accuracy after voting
     accuracy = accuracy_score(y_test, final_predictions)
     print(f"Final voting classification accuracy: {accuracy:.2f}")
 
-    # Plot the confusion matrix to visualize the classification performance
     cm = confusion_matrix(y_test, final_predictions)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Deceptive", "True"])
     disp.plot(cmap="Blues")
     plt.title("Confusion Matrix")
     plt.show()
 
+    # Save the model if specified
+    if model_save_path:
+        print(f"Saving model to {model_save_path}")
+        joblib.dump({"text_models": models_text, "audio_models": models_audio, "scaler": scaler}, model_save_path)
 
-# 主程序
+
+# Use the trained model to predict new data
+def predict_with_model(model_load_path, X_text, X_audio):
+    print(f"Loading model from {model_load_path}")
+    model_data = joblib.load(model_load_path)
+
+    models_text = model_data["text_models"]
+    models_audio = model_data["audio_models"]
+    scaler = model_data["scaler"]
+
+    # Standardize audio features
+    X_audio = scaler.transform(X_audio)
+
+    predictions_text = {}
+    for name, model in models_text.items():
+        pred = model.predict(X_text)
+        predictions_text[name] = pred
+
+    predictions_audio = {}
+    for name, model in models_audio.items():
+        pred = model.predict(X_audio)
+        predictions_audio[name] = pred
+
+    # Voting mechanism for final prediction
+    final_predictions = []
+    for i in range(len(X_text)):
+        votes = []
+        for name, pred in {**predictions_text, **predictions_audio}.items():
+            votes.extend([pred[i]] * 10)  # Equal weight for all models here
+        final_predictions.append(1 if votes.count(1) > votes.count(0) else 0)
+
+    return final_predictions
+
+
+# Main program
 def main():
-    print("Start loading data")
-    csv_file = "CBU0521DD_stories_attributes.csv"
-    folder_path = "CBU0521DD_stories"
-    df = pd.read_csv(csv_file)
+    mode = input("Enter 'train' to train the model or 'predict' to use the model: ").strip().lower()
 
-    audio_files = df["filename"].values
-    labels = df["Story_type"].map({"True Story": 1, "Deceptive Story": 0}).values
+    if mode == "train":
+        print("Start loading data")
+        csv_file = "CBU0521DD_stories_attributes.csv"
+        folder_path = "CBU0521DD_stories"
+        df = pd.read_csv(csv_file)
 
-    texts = []
-    print("Start audio to text conversion")
-    for i, file in enumerate(audio_files):
-        file_path = os.path.join(folder_path, file)
-        output_text_path = os.path.join(folder_path, f"{file[:-4]}.txt")
+        audio_files = df["filename"].values
+        labels = df["Story_type"].map({"True Story": 1, "Deceptive Story": 0}).values
 
-        # Check if there is converted text
-        if os.path.exists(output_text_path):
-            with open(output_text_path, "r") as f:
-                text = f.read()
-        else:
-            text = audio_to_text(file_path, output_text_path)
-        texts.append(text)
-    print("Audio to text conversion completed")
+        texts = []
+        print("Start audio to text conversion")
+        for i, file in enumerate(audio_files):
+            file_path = os.path.join(folder_path, file)
+            output_text_path = os.path.join(folder_path, f"{file[:-4]}.txt")
 
-    print("Extract Text Features")
-    X_text = extract_text_features(texts)
+            if os.path.exists(output_text_path):
+                with open(output_text_path, "r") as f:
+                    text = f.read()
+            else:
+                text = audio_to_text(file_path, output_text_path)
+            texts.append(text)
+        print("Audio to text conversion completed")
 
-    print("Extract audio features")
-    X_audio = np.array([extract_audio_features(os.path.join(folder_path, file)) for file in audio_files])
+        print("Extract Text Features")
+        X_text = extract_text_features(texts)
 
-    # Classification and Evaluation
-    train_and_evaluate(X_text, X_audio, labels)
+        print("Extract audio features")
+        X_audio = np.array([extract_audio_features(os.path.join(folder_path, file)) for file in audio_files])
+
+        print("Training and evaluating models")
+        model_save_path = "trained_model.pkl"
+        train_and_evaluate(X_text, X_audio, labels, model_save_path)
+
+    elif mode == "predict":
+        # Load model
+        model_load_path = "trained_model.pkl"
+        if os.path.exists(model_load_path) is False:
+            print("Model does not exist")
+            return
+        print("Start loading data for prediction")
+        test_folder_path = "predict"
+        audio_files = [f for f in os.listdir(test_folder_path) if f.endswith(".wav")]
+        texts = []
+        file_name = []
+        for file in audio_files:
+            file_path = os.path.join(test_folder_path, file)
+            file_name.append(file)
+            output_text_path = os.path.join(test_folder_path, f"{file[:-4]}.txt")
+
+            if os.path.exists(output_text_path):
+                with open(output_text_path, "r") as f:
+                    text = f.read()
+            else:
+                text = audio_to_text(file_path, output_text_path)
+            texts.append(text)
+        print("Audio to text conversion completed")
+
+        print("Extract Text Features")
+        X_text = extract_text_features(texts)
+
+        print("Extract audio features")
+        X_audio = np.array([extract_audio_features(os.path.join(test_folder_path, file)) for file in audio_files])
+
+        predictions = predict_with_model(model_load_path, X_text, X_audio)
+        with open("result.txt", "w") as f:
+            for i in range(len(predictions)):
+                print(f"Data: {file_name[i]}, Prediction: {predictions[i]}")
+                f.write(f"Data: {file_name[i]}, Prediction: {predictions[i]}\n")
+
+    else:
+        print("Invalid option! Please enter 'train' or 'predict'.")
 
 
 if __name__ == "__main__":
