@@ -4,7 +4,113 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="511d45b2-22b4-4e06-9292-7346d7a59f64" name="更改" comment="feature:Add predict function" />
+    <list default="true" id="511d45b2-22b4-4e06-9292-7346d7a59f64" name="更改" comment="fix:Add description">
+      <change afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00001.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00002.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00003.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00004.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00005.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00006.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00007.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00008.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00009.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00010.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00011.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00012.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00013.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00014.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00015.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00016.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00017.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00018.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00019.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00020.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00021.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00022.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00023.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00024.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00025.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00026.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00027.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00028.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00029.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00030.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00031.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00032.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00033.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00034.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00035.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00036.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00037.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00038.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00039.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00040.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00041.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00042.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00043.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00044.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00045.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00046.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00047.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00048.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00049.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00050.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00051.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00052.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00053.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00054.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00055.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00056.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00057.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00058.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00059.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00060.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00061.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00062.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00063.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00064.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00065.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00066.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00067.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00068.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00069.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00070.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00071.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00072.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00073.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00074.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00075.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00076.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00077.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00078.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00079.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00080.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00081.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00082.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00083.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00084.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00085.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00086.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00087.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00088.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00089.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00090.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00091.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00092.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00093.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00094.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00095.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00096.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00097.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00098.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00099.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00100.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/intergration.py" beforeDir="false" afterPath="$PROJECT_DIR$/intergration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predict/00001.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/predict/00002.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +120,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -40,28 +147,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.KMeans.executor&quot;: &quot;Run&quot;,
-    &quot;Python.RandomForest.executor&quot;: &quot;Run&quot;,
-    &quot;Python.RandomValue.executor&quot;: &quot;Run&quot;,
-    &quot;Python.audio.executor&quot;: &quot;Run&quot;,
-    &quot;Python.intergration.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.speech_to_text.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/JXMYJ/pythonProjects/authenticate&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.KMeans.executor": "Run",
+    "Python.RandomForest.executor": "Run",
+    "Python.RandomValue.executor": "Run",
+    "Python.audio.executor": "Run",
+    "Python.intergration.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.speech_to_text.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/JXMYJ/pythonProjects/authenticate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.notebooks.jupyter.connections.configuration.JupyterServerConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python.intergration">
     <configuration name="KMeans" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="authenticate" />
@@ -212,7 +319,7 @@
       <workItem from="1734163530189" duration="14320000" />
       <workItem from="1734185917262" duration="2655000" />
       <workItem from="1734247648481" duration="6680000" />
-      <workItem from="1734343551180" duration="2381000" />
+      <workItem from="1734343551180" duration="5466000" />
     </task>
     <task id="LOCAL-00001" summary="feature:first version(just test)">
       <option name="closed" value="true" />
@@ -278,7 +385,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734345934683</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix:Add description">
+      <option name="closed" value="true" />
+      <created>1734346137145</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1734346137145</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,7 +407,8 @@
     <MESSAGE value="fix:Simultaneously utilizing text and audio features" />
     <MESSAGE value="docs:Convert Chinese annotations to English" />
     <MESSAGE value="feature:Add predict function" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature:Add predict function" />
+    <MESSAGE value="fix:Add description" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:Add description" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/authenticate$speech_to_text.coverage" NAME="speech_to_text 覆盖结果" MODIFIED="1733838393083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
