@@ -12,7 +12,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-import joblib  # 用于保存和加载模型
+import joblib
 import matplotlib.pyplot as plt
 
 
@@ -28,12 +28,15 @@ def recognize_whisper(audio_path):
 # Audio to text conversion
 def audio_to_text(audio_path, output_text_path):
     print(f"Start recognizing {audio_path} ...")
+    # Using Whisper base model and GPU acceleration
     model = whisper.load_model("base").to("cuda")
     audio = whisper.load_audio(audio_path)
     audio = whisper.pad_or_trim(audio)
+    # Obtain the conversion result
     result = model.transcribe(audio)
     text = result['text']
 
+    # Save transcribed text
     with open(output_text_path, "w") as f:
         f.write(text)
     return text
@@ -41,10 +44,15 @@ def audio_to_text(audio_path, output_text_path):
 
 # Extract audio features
 def extract_audio_features(file_path):
+    # Loading audio files using the librosa library
     y, sr = librosa.load(file_path, sr=None)
+    # Calculate Mel frequency cepstral coefficients
     mfcc = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13), axis=1)
+    # Calculate the zero crossing rate
     zcr = np.mean(librosa.feature.zero_crossing_rate(y))
+    # Calculate root mean square
     rms = np.mean(librosa.feature.rms(y=y))
+    # Splicing to obtain audio features
     return np.hstack([mfcc, zcr, rms])
 
 
@@ -54,8 +62,9 @@ def extract_text_features(texts):
     return vectorizer.fit_transform(texts).toarray()
 
 
-# Train and evaluate the model
+# Classification and voting mechanism (with added weights)
 def train_and_evaluate(X_text, X_audio, y, model_save_path=None):
+    # Split the data into training and test sets (80% training, 20% testing)
     X_text_train, X_text_test, X_audio_train, X_audio_test, y_train, y_test = train_test_split(
         X_text, X_audio, y, test_size=0.2, random_state=32
     )
@@ -64,9 +73,11 @@ def train_and_evaluate(X_text, X_audio, y, model_save_path=None):
 
     # Audio classifiers
     scaler = StandardScaler()
+    # Standardizing audio features (scaling them to have mean=0 and std=1)
     X_audio_train = scaler.fit_transform(X_audio_train)
     X_audio_test = scaler.transform(X_audio_test)
 
+    # Models for audio classification: kNN and Gaussian Naive Bayes
     models_audio = {
         "kNN": KNeighborsClassifier(n_neighbors=5),
         "GaussianNB": GaussianNB(),
@@ -84,6 +95,7 @@ def train_and_evaluate(X_text, X_audio, y, model_save_path=None):
         accuracy_audio[name] = accuracy
         print(f"{name} (Audio features) Accuracy: {accuracy:.2f}")
 
+    # Text classifiers using Logistic Regression and Random Forest
     models_text = {
         "LogisticRegression": LogisticRegression(max_iter=1000),
         "RandomForest": RandomForestClassifier(n_estimators=15, random_state=32),
@@ -101,19 +113,24 @@ def train_and_evaluate(X_text, X_audio, y, model_save_path=None):
         accuracy_text[name] = accuracy
         print(f"{name} (Text features) Accuracy: {accuracy:.2f}")
 
+    # Combine the accuracy of all models (text and audio)
     accuracies = {**accuracy_text, **accuracy_audio}
 
+    # Voting mechanism for final prediction
     final_predictions = []
     for i in range(len(y_test)):
         votes = []
         for name, pred in {**predictions_text, **predictions_audio}.items():
             weight = accuracies.get(name, 0)
             votes.extend([pred[i]] * int(weight * 10))
+        # Extend the votes list by the weight factor
         final_predictions.append(1 if votes.count(1) > votes.count(0) else 0)
 
+    # Output the final accuracy after voting
     accuracy = accuracy_score(y_test, final_predictions)
     print(f"Final voting classification accuracy: {accuracy:.2f}")
 
+    # Plot the confusion matrix to visualize the classification performance
     cm = confusion_matrix(y_test, final_predictions)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Deceptive", "True"])
     disp.plot(cmap="Blues")
