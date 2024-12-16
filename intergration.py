@@ -231,6 +231,7 @@ def main():
             for i in range(len(predictions)):
                 print(f"Data: {file_name[i]}, Prediction: {predictions[i]}")
                 f.write(f"Data: {file_name[i]}, Prediction: {predictions[i]}\n")
+        print("The result has been saved in result.txt")
 
     else:
         print("Invalid option! Please enter 'train' or 'predict'.")
