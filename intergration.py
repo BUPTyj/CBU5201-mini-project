@@ -16,18 +16,8 @@ import joblib
 import matplotlib.pyplot as plt
 
 
-# Whisper speech recognition
-def recognize_whisper(audio_path):
-    model = load_model("base")
-    audio = load_audio(audio_path)
-    audio = pad_or_trim(audio)
-    result = model.transcribe(audio)
-    return result["text"]
-
-
 # Audio to text conversion
 def audio_to_text(audio_path, output_text_path):
-    print(f"Start recognizing {audio_path} ...")
     # Using Whisper base model and GPU acceleration
     model = whisper.load_model("base").to("cuda")
     audio = whisper.load_audio(audio_path)
