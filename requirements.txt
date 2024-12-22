@@ -1,0 +1,7 @@
+joblib==1.4.2
+librosa==0.10.2.post1
+matplotlib==3.10.0
+numpy==2.2.1
+openai_whisper==20240930
+pandas==2.2.3
+scikit_learn==1.6.0
