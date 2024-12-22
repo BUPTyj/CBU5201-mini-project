@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="511d45b2-22b4-4e06-9292-7346d7a59f64" name="更改" comment="fix:Change .py file to .ipynb file">
+    <list default="true" id="511d45b2-22b4-4e06-9292-7346d7a59f64" name="更改" comment="fix:Delete redundant code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00012.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CBU0521DD_stories/00012.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00027.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CBU0521DD_stories/00027.txt" afterDir="false" />
@@ -19,8 +19,7 @@
       <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00078.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CBU0521DD_stories/00078.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00095.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CBU0521DD_stories/00095.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CBU0521DD_stories/00097.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CBU0521DD_stories/00097.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/intergration.py" beforeDir="false" afterPath="$PROJECT_DIR$/intergration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/CBU5201_miniproject.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +230,11 @@
       <workItem from="1734185917262" duration="2655000" />
       <workItem from="1734247648481" duration="6680000" />
       <workItem from="1734343551180" duration="8097000" />
-      <workItem from="1734356953354" duration="662000" />
+      <workItem from="1734356953354" duration="737000" />
+      <workItem from="1734357703360" duration="390000" />
+      <workItem from="1734358409994" duration="1155000" />
+      <workItem from="1734414830471" duration="99000" />
+      <workItem from="1734418477937" duration="8031000" />
     </task>
     <task id="LOCAL-00001" summary="feature:first version(just test)">
       <option name="closed" value="true" />
@@ -321,7 +324,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734352334812</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fix:Delete redundant code">
+      <option name="closed" value="true" />
+      <created>1734357648824</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1734357648824</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix:Delete redundant code">
+      <option name="closed" value="true" />
+      <created>1734357683897</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1734357683897</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,11 +356,12 @@
     <MESSAGE value="feature:Add predict function" />
     <MESSAGE value="fix:Add description" />
     <MESSAGE value="fix:Change .py file to .ipynb file" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix:Change .py file to .ipynb file" />
+    <MESSAGE value="fix:Delete redundant code" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:Delete redundant code" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/authenticate$speech_to_text.coverage" NAME="speech_to_text 覆盖结果" MODIFIED="1733838393083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/authenticate$intergration.coverage" NAME="intergration 覆盖结果" MODIFIED="1734345697665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/authenticate$intergration.coverage" NAME="intergration 覆盖结果" MODIFIED="1734357516006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/authenticate$KMeans.coverage" NAME="KMeans 覆盖结果" MODIFIED="1733844607858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/authenticate$audio.coverage" NAME="audio 覆盖结果" MODIFIED="1734164679395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/authenticate$RandomForest.coverage" NAME="RandomForest 覆盖结果" MODIFIED="1733844527764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
